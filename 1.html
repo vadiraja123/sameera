@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Data table with Pagination</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <style type="text/css">
+    table, th, td {
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+  table,tr{
+    width: 100%;
+  }
+  </style>
+
+
+  
+</head>
+<body>
+
+  <table id="employees_data_table" class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Sno</th>
+        <th>FirstName</th>
+        <th>LastName</th>
+        <th>Id</th>
+        <th>Age</th>
+        <th >Gender</th>
+      </tr>
+    </thead>
+    <tbody>
+    </tbody>
+
+  </table>
+  <ul class="pagination">
+    <li class="active"><a href="#">1</a></li>
+    <li><a href="#">2</a></li>
+    <li><a href="#">3</a></li>
+    <li><a href="#">4</a></li>
+  </ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+  var employees_list = [
+    {
+      firstName:"John",
+      lastName : "Doe",
+      id:724673,
+      age     : 24,
+      Gender  : "male",
+    },
+    {
+      firstName:"Jenkins",
+      lastName : "David",
+      id:724674,
+      age     : 25,
+      Gender  :"male",
+    },
+    {
+      firstName:"Timmons",
+      lastName : "Alice",
+      id:724675,
+      age     : 26,
+      Gender  :"female",
+    },
+     {
+      firstName:"Williams",
+      lastName : "Jessica",
+      id:724676,
+      age     : 27,
+      Gender  :"female",
+    },
+    {
+      firstName:"Smith",
+      lastName : "Alex",
+      id:724672,
+      age     : 24,
+      Gender  : "male",
+    },
+    {
+      firstName:"Sawyer",
+      lastName : "John",
+      id:724677,
+      age     : 26,
+      Gender  :"male",
+    },
+     {
+      firstName:"Carter",
+      lastName : "Paul",
+      id:724678,
+      age     : 26,
+      Gender  :"male",
+    },
+     {
+      firstName:"Thomas",
+      lastName : "Martin",
+      id:724679,
+      age     : 27,
+      Gender  :"male",
+    },
+    {
+      firstName:"Perry",
+      lastName : "Karl",
+      id:724680,
+      age     : 23,
+      Gender  :"male",
+    },
+     {
+      firstName:"Thomas",
+      lastName : "Rita",
+      id:724681,
+      age     : 27,
+      Gender  :"female",
+    },
+    {
+     firstName:"Steve",
+     lastName : "Mathews",
+     id:654263,
+     age     :34 ,
+     Gender  :"male",
+    }, 
+    {
+     firstName:"Mathew",
+     lastName : "Hayden",
+     id:654264,
+     age     :33 ,
+     Gender  :"male",
+    },
+    {
+     firstName:"Ricky",
+     lastName : "Ponting",
+     id:654266,
+     age     :32 ,
+     Gender  :"male",
+    }, 
+    {
+     firstName:"Mark",
+     lastName : "Smith",
+     id:654265,
+     age     :26 ,
+     Gender  :"male",
+    },
+    { 
+     firstName:"Ann",
+     lastName : "Philip",
+     id:654267,
+     age     :28 ,
+     Gender  :"female",
+    }, 
+    {
+     firstName:"David",
+     lastName : "Spears",
+     id:654268,
+     age     :29 ,
+     Gender  :"male",
+    }, 
+    {
+     firstName:"Susan",
+     lastName : "Boyle",
+     id:654261,
+     age     :35 ,
+     Gender  :"female",
+    }, 
+    {
+     firstName:"Christian",
+     lastName : "Loms",
+     id:654262,
+     age     :32 ,
+     Gender  :"female",
+    }, 
+    {
+     firstName:"Sophie",
+     lastName : "Cyrus",
+     id:654269,
+     age     :33 ,
+     Gender  :"female",
+    }, 
+    {
+     firstName:"Dan",
+     lastName : "Reynolds",
+     id:32,
+     age     : 654232,
+     Gender  :"male",
+    }
+  ];
+
+  function update_table_rows(page_number){
+      $('#employees_data_table tbody').html('');
+      for (var i = (page_number-1)*5; i <((page_number-1)*5)+5; i++) {
+        tr = $('<tr/>');
+        tr.append("<td>" +    (Number(i)+1) +"</td>");
+        tr.append("<td>" +   employees_list[i].firstName + "</td>");
+        tr.append("<td>" +   employees_list[i].lastName + "</td>");
+        tr.append("<td>" +   employees_list[i].id + "</td>");
+        tr.append("<td>" +   employees_list[i].age + "</td>");
+        tr.append("<td>" +   employees_list[i].Gender + "</td>");
+        $('#employees_data_table tbody').append(tr);
+      }
+  }
+
+
+  $(function(){
+    update_table_rows(1);
+  });
+
+  $('ul li').click(function(e){
+    var page_number = $(this).find('a').text();
+    update_table_rows(page_number);
+    $('ul li.active').removeClass('active');
+    $(this).addClass('active');
+  });
+
+
+  </script>
+</body>
+</html>
+        
