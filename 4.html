@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>matrix multiplication</title>
+		<title>Matrix Addition</title>
+	<script type="text/javascript">
+		function matrix_operation1(){
+			var no_of_rows1=document.getElementById("no_of_rows1").value;
+			var no_of_columns1=document.getElementById("no_of_columns1").value;
+      var no_of_rows2=document.getElementById("no_of_rows2").value;
+      var no_of_columns2=document.getElementById("no_of_columns2").value;
+			var matrix_html_code="";
+            matrix_html_code=matrix_html_code+ "<table border='1' width='500' cellspacing='0'cellpadding='5'>";
+            for (var i =1 ; i <= no_of_rows1; i++) {
+                matrix_html_code=matrix_html_code + "<tr>";
+              for (var j =1 ; j <= no_of_columns1; j++) {
+                matrix_html_code=matrix_html_code + "<td><input type='text'></td>";
+              }
+            }
+            matrix_html_code=matrix_html_code+ "</tr>"+"</table>";
+            document.getElementById("matrix1").innerHTML=matrix_html_code;
+              var matrix_html_code="";
+                matrix_html_code=matrix_html_code + "<table border='1' width='500' cellspacing='0'cellpadding='5'>";
+                for (var k =1 ; k <= no_of_rows2; k++) {
+                  matrix_html_code=matrix_html_code + "<tr>";
+                  for (var l =1 ; l <= no_of_columns2; l++) {
+                     matrix_html_code=matrix_html_code + "<td><input type='text'></td>";    
+              }
+            }
+
+        matrix_html_code=matrix_html_code+ "</tr>"+"</table>";
+        document.getElementById("matrix2").innerHTML=matrix_html_code;
+
+        if(j!=k){
+        document.write("Matrix multiplication is not possible since no of Columns of Matrix1 and no of Rows of Matrix2 are not Equal.");
+         }
+       }
+       function calculate(){
+        var no_of_rows1=document.getElementById("no_of_rows1").value;
+        var no_of_columns2=document.getElementById("no_of_columns2").value;
+        var matrix_html_code="";
+        matrix_html_code=matrix_html_code + "<table border='1' width='500' cellspacing='0'cellpadding='8' height='50'>";
+         for (var i =1 ; i <= no_of_rows1; i++) {
+          matrix_html_code=matrix_html_code + "<tr>";
+          for (var l =1 ; l <= no_of_columns2; l++) {
+                                                                 
+          // Row value gathering start
+          var row_values = [];
+          var matrix1_row = document.getElementById("matrix1").children[0].rows[i-1];
+            for(var j=1; j<=matrix1_row.cells.length; j++){
+              row_values.push(Number(matrix1_row.cells[j-1].children[0].value));
+            }
+            console.log(row_values);
+            // Row value gathering end
+            // Call values gathering start
+            var column_values = [];
+            var matrix2_rows  = document.getElementById("matrix2").children[0].rows;
+              for(var m=1; m<=matrix2_rows.length; m++){
+                column_values.push(Number(matrix2_rows[m-1].cells[l-1].children[0].value));
+            }
+            console.log(column_values);
+            // Call values gathering end
+            var result = 0;
+            for(n=1; n<=matrix1_row.cells.length;n++){
+            result = result + (row_values[n-1])*(column_values[n-1]);
+              console.log(result);
+          }
+            matrix_html_code=matrix_html_code + "<td>"+result+"</td>";
+            }
+        }
+
+
+        matrix_html_code=matrix_html_code+ "</tr>"+"</table>";
+        document.getElementById("result").innerHTML=matrix_html_code;     
+       }  
+      </script>
+</head>
+<body>
+	Number of rows of matirx 1:  <input type="number" name="row" onfocus="this.value=''" id="no_of_rows1"><br>
+	Number of Columns of matrix1:<input type="number" name="Column" onfocus="this.value=''" id="no_of_columns1"><br>
+  Number of rows of matirx 2:  <input type="number" name="row" onfocus="this.value=''" id="no_of_rows2"><br>
+  Number of Columns of matrix2:<input type="number" name="Column" onfocus="this.value=''" id="no_of_columns2"><br>
+  <button type="button" onclick= "matrix_operation1()">submit</button><br>
+  Matrix1 is:<div id="matrix1"></div>
+  Matrix2 is:<div id="matrix2"></div>
+  <button type="button" onclick="calculate()">calculate</button><br>
+  Result matrix is:<div id="result"></div>
+  
+	
+
+</body>
+</html> 
