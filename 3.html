@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Matrix Addition</title>
+	<script type="text/javascript">
+		function matrix_operations(){
+			var no_of_rows=document.getElementById("no_of_rows").value;
+			var no_of_columns=document.getElementById("no_of_columns").value;
+			var matrix_html_code="";
+            matrix_html_code=matrix_html_code + "<table border='1' width='500' cellspacing='0'cellpadding='5'>";
+            for (var i =1 ; i <= no_of_rows; i++) {
+                matrix_html_code=matrix_html_code + "<tr>";
+                for (var j =1 ; j <= no_of_columns; j++) {
+                matrix_html_code=matrix_html_code + "<td><input type='text'></td>";
+            }
+        }
+            matrix_html_code=matrix_html_code+ "</tr>"+"</table>";
+            document.getElementById("matrix1").innerHTML=matrix_html_code;
+            document.getElementById("matrix2").innerHTML=matrix_html_code;
+		}
+    function  calculate(){
+      var no_of_rows=document.getElementById("no_of_rows").value;
+      var no_of_columns=document.getElementById("no_of_columns").value;
+      var matrix_html_code="";
+      matrix_html_code=matrix_html_code + "<table border='1' width='500' cellspacing='0'cellpadding='5'>";
+      for (var i =1 ; i <= no_of_rows; i++) {
+        matrix_html_code=matrix_html_code + "<tr>";
+        for (var j =1 ; j <= no_of_columns; j++) {
+          var val1=0;
+          var val2=0;
+
+          val1 = Number(document.getElementById("matrix1").children[0].rows[i-1].cells[j-1].children[0].value);
+          val2 = Number(document.getElementById("matrix2").children[0].rows[i-1].cells[j-1].children[0].value);
+          
+          var result = val1 + val2; 
+          matrix_html_code=matrix_html_code + "<td>"+result+"</td>";
+        }
+      }
+      matrix_html_code=matrix_html_code+ "</tr>"+"</table>";
+      document.getElementById("matrixaddition").innerHTML=matrix_html_code;
+    }
+      
+	</script>
+</head>
+<body>
+	Number of rows:   <input type="number" name=row" onfocus="this.value=''" id="no_of_rows"><br>
+	Number of Columns:<input type="number" name="Column" onfocus="this.value=''" id="no_of_columns"><br>
+	<button type="button" onclick= "matrix_operations()">submit</button><br>
+  
+	matrix 1 is:<div id="matrix1"></div><br>
+  matrix 2 is:<div id="matrix2"></div>
+  <button type="button" onclick="calculate()">calculate</button><br>
+	matrix addition:<div id="matrixaddition"></div>
+  
+
+
+
+</body>
+</html>
