@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table creation using Ajax</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+<style type="text/css">
+  table,th,td{
+    border: 1px solid black;
+    border-collapse: collapse;
+    padding: 5px;
+  }
+  table, tr{
+    width: 100%;
+  }
+  .table_wrapper{
+    padding-left: 100px;
+  }
+</style>
+</head>
+<body>
+	<form>
+    <div class="table_wrapper">
+      <h3>Search</h3><br>
+  		<input type="text" name="Search" value="">
+  		<button>submit</button><br><br>
+    </div>  
+	</form>
+  <div class="container">
+  <table id="tourist_places">
+    <thead>
+      <tr>
+        <th>Sno</th>
+        <th>Name</th>
+        <th>Tourist Type</th>
+        <th>City</th>
+        <th>Town</th>
+      </tr>
+    </thead>
+  <tbody>
+  </tbody>
+</table>
+<ul class="pagination"></ul>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ <script>
+  function update_table_rows(search_text,page_number){
+  var limit=5;
+    $.ajax({
+      type: 'GET',
+      url: 'https://admin.aptaeguides.com/api/en/places/',
+      data: {'search_text':search_text,'limit':limit,'start':((page_number-1)*limit)},
+      success: function (res){
+        $('#tourist_places tbody td').remove(); 
+        var no_of_pages=(Math.round((res.total_count)/limit));
+        $.each(res.data,function(i,el){
+          var tr = $('<tr>');
+          $('<td>').text(((page_number-1)*limit)+(i+1)).appendTo(tr);
+          $('<td>').text(el.name).appendTo(tr);
+          $('<td>').text(el.tourism_type).appendTo(tr);
+          $('<td>').text(el.city).appendTo(tr);
+          $('<td>').text(el.town).appendTo(tr);  
+          tr.appendTo('#tourist_places tbody');  
+        });
+        $('ul li').remove();
+        for(j=1;j<=no_of_pages;j++){
+          if(j==page_number){
+            $('<li class="active"><a href="#">'+j+'</a><li>').appendTo('ul');
+          }
+          else{
+            $('<li><a href="#">'+j+'</a><li>').appendTo('ul');
+          }
+        }
+        $('ul li').click(function(e){
+        e.preventDefault()
+        var page_number = $(this).find('a').text();
+        update_table_rows($('input').val(),page_number);
+        $('ul li.active').removeclass('active');
+        $(this).addclass('active');
+        });
+      }
+    }); 
+  }   
+  $(function(){
+    update_table_rows('',1);
+  });
+  $('form').submit(function(e){
+    e.preventDefault() 
+    update_table_rows($('input').val(),1);
+  });
+</script>  
+</body>
+</html>
