@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Table with  Dynamic Pagination</title>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <style type="text/css">
+    table,th,td{
+      border : 1px solid grey;
+      border-collapse:  collapse;
+      padding: 5px;
+    }
+    table,tr{
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+	<div ng-app="myApp" ng-controller="employeesCtrl"> 
+    <table>
+      <thead>
+        <tr>
+          <th>Firstname</th>
+          <th>Lastname</th>
+          <th>Id</th>
+          <th>Age</th>
+          <th>Gender</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="employee in employees.slice(starting_element,ending_element)">
+          <td>{{employee.Firstname}}</td>
+          <td>{{employee.Lastname}}</td>
+          <td>{{employee.Id}}</td>
+          <td>{{employee.Age}}</td>
+          <td>{{employee.Gender}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <ul class="pagination">
+      <li  ng-repeat="page in page_numbers" ng-click="change_page(page)" ng-class="{active: page_number == page }"><a href="#">{{page}}</a></li>
+    </ul>
+    <script src="http://code.angularjs.org/1.4.8/angular.js"></script>
+    <script type="text/javascript">
+    var app = angular.module('myApp', []);
+    app.controller('employeesCtrl', function($scope){
+      $scope.employees =[
+        {
+        Firstname:"John",
+        Lastname : "Doe",
+        Id:724673,
+        Age     : 24,
+        Gender  : "male",
+        },
+        {
+        Firstname:"Jenkins",
+        Lastname : "David",
+        Id:724674,
+        Age     : 25,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Timmons",
+        Lastname : "Alice",
+        Id:724675,
+        Age     : 26,
+        Gender  :"female",
+        },
+        {
+        Firstname:"Williams",
+        Lastname : "Jessica",
+        Id:724676,
+        Age     : 27,
+        Gender  :"female",
+        },
+        {
+        Firstname:"Smith",
+        Lastname : "Alex",
+        Id:724672,
+        Age     : 24,
+        Gender  : "male",
+        },
+        {
+        Firstname:"Sawyer",
+        Lastname : "John",
+        Id:724677,
+        Age     : 26,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Carter",
+        Lastname : "Paul",
+        Id:724678,
+        Age     : 26,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Thomas",
+        Lastname : "Martin",
+        Id:724679,
+        Age     : 27,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Perry",
+        Lastname : "Karl",
+        Id:724680,
+        Age     : 23,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Thomas",
+        Lastname : "Rita",
+        Id:724681,
+        Age     : 27,
+        Gender  :"female",
+        },
+        {
+        Firstname:"Steve",
+        Lastname : "Mathews",
+        Id:654263,
+        Age     :34 ,
+        Gender  :"male",
+        }, 
+        {
+        Firstname:"Mathew",
+        Lastname : "Hayden",
+        Id:654264,
+        Age     :33 ,
+        Gender  :"male",
+        },
+        {
+        Firstname:"Ricky",
+        Lastname : "Ponting",
+        Id:654266,
+        Age     :32 ,
+        Gender  :"male",
+        }, 
+        {
+        Firstname:"Mark",
+        Lastname : "Smith",
+        Id:654265,
+        Age     :26 ,
+        Gender  :"male",
+        },
+        { 
+        Firstname:"Ann",
+        Lastname : "Philip",
+        Id:654267,
+        Age     :28 ,
+        Gender  :"female",
+        }, 
+        {
+        Firstname:"David",
+        Lastname : "Spears",
+        Id:654268,
+        Age     :29 ,
+        Gender  :"male",
+        }, 
+        {
+        Firstname:"Susan",
+        Lastname : "Boyle",
+        Id:654261,
+        Age     :35 ,
+        Gender  :"female",
+        }, 
+        {
+        Firstname:"Christian",
+        Lastname : "Loms",
+        Id:654262,
+        Age     :32 ,
+        Gender  :"female",
+        }, 
+        {
+        Firstname:"Sophie",
+        Lastname : "Cyrus",
+        Id:654269,
+        Age     :33 ,
+        Gender  :"female",
+        }, 
+        {
+        Firstname:"Dan",
+        Lastname : "Reynolds",
+        Id:654232,
+        Age     : 32,
+        Gender  :"male",
+        }
+      ];
+      $scope.starting_element = 0;
+      $scope.limit = 5;
+      $scope.ending_element = $scope.starting_element + $scope.limit;
+      $scope.page_number = 1;
+      $scope.no_of_pages = (Math.round(($scope.employees.length)/$scope.limit));
+      $scope.page_numbers = [];
+      for(i=1;i<=$scope.no_of_pages;i++){
+        $scope.page_numbers.push(i);
+      }
+      $scope.change_page = function(page_number) {
+        $scope.page_number = page_number;
+        $scope.starting_element = (page_number-1)*$scope.limit;
+        $scope.ending_element = $scope.starting_element + $scope.limit;
+      }
+    });
+  </script>
+</body>
+</html>
